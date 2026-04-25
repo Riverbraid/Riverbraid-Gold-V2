@@ -6,11 +6,22 @@ function App() {
   const [anchor, setAnchor] = useState('0xDE2062');
   const [state, setState] = useState('');
   const [type, setType] = useState<StateType>('Linear');
-  const [history, setHistory] = useState<StateSeal[]>([]);
+  
+  // Initialize history from localStorage to ensure Permanence
+  const [history, setHistory] = useState<StateSeal[]>(() => {
+    const saved = localStorage.getItem('riverbraid_v2_history');
+    return saved ? JSON.parse(saved) : [];
+  });
+
   const [currentOutput, setCurrentOutput] = useState<TshOutput | null>(null);
 
   const prevHash = history.length > 0 ? history[history.length - 1].hash : '0x0000_GENESIS';
   const sequence = history.length + 1;
+
+  // Sync history to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('riverbraid_v2_history', JSON.stringify(history));
+  }, [history]);
 
   useEffect(() => {
     const runScan = async () => {
@@ -27,15 +38,32 @@ function App() {
     }
   };
 
+  const exportManifest = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(history, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `riverbraid_manifest_seq${history.length}.json`);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  };
+
+  const clearBraid = () => {
+    if (window.confirm("CAUTION: This will purge the local braid. Proceed?")) {
+      setHistory([]);
+      localStorage.removeItem('riverbraid_v2_history');
+    }
+  };
+
   return (
     <div style={{ padding: '40px', backgroundColor: '#080808', color: '#f0f0f0', minHeight: '100vh', fontFamily: 'monospace' }}>
       <header style={{ borderBottom: '2px solid #ffd700', paddingBottom: '10px', marginBottom: '30px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
         <div>
           <h1 style={{ color: '#ffd700', margin: 0, fontSize: '1.5rem' }}>RIVERBRAID // GOLD_SYSTEM_v2</h1>
-          <span style={{ color: '#00ff00', fontSize: '0.7rem' }}>? CORE_STABLE</span>
+          <span style={{ color: '#00ff00', fontSize: '0.7rem' }}>? CORE_STABLE (PERSISTENT)</span>
         </div>
-        <div style={{ textAlign: 'right', fontSize: '0.8rem', color: '#666' }}>
-          NODE_PORT: 4444 <br/> SEQ_DEPTH: {history.length}
+        <div style={{ textAlign: 'right' }}>
+          <button onClick={exportManifest} style={{ background: 'transparent', border: '1px solid #ffd700', color: '#ffd700', padding: '5px 10px', cursor: 'pointer', fontSize: '0.7rem', marginRight: '10px' }}>EXPORT_MANIFEST</button>
+          <button onClick={clearBraid} style={{ background: 'transparent', border: '1px solid #ff4444', color: '#ff4444', padding: '5px 10px', cursor: 'pointer', fontSize: '0.7rem' }}>PURGE_LOCAL</button>
         </div>
       </header>
 
@@ -80,7 +108,7 @@ function App() {
         </main>
 
         <aside>
-          <h3 style={{ color: '#ffd700', marginTop: 0 }}>INTEGRITY_LEDGER</h3>
+          <h3 style={{ color: '#ffd700', marginTop: 0 }}>INTEGRITY_LEDGER (SEQ: {history.length})</h3>
           <div style={{ overflowY: 'auto', maxHeight: '70vh', display: 'flex', flexDirection: 'column-reverse', gap: '12px' }}>
             {history.map((s) => (
               <div key={s.hash} style={{ padding: '15px', border: '1px solid #222', background: '#0a0a0a', fontSize: '0.75rem', position: 'relative' }}>
