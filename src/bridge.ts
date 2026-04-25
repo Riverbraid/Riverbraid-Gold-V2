@@ -1,6 +1,5 @@
 import { TshOutput, RiverbraidInvariant, StateType } from './types/riverbraid';
 
-// This is the Root of Trust. If the logic changes, this hash will mismatch.
 const V2_CORE_SIGNAL = "0x8844_STEADY_ROOT"; 
 
 export const computeHash = async (data: string): Promise<string> => {
@@ -18,11 +17,11 @@ export const evaluateState = async (
     previousHash: string
 ): Promise<TshOutput> => {
     const results: RiverbraidInvariant[] = [
-        { id: 'Coupling', passed: anchor.startsWith('0x'), reason: 'Invalid Anchor' },
-        { id: 'Scale', passed: state.length > 0, reason: 'Empty Substrate' },
-        { id: 'Structural', passed: ['Linear', 'Nonlinear'].includes(type), reason: 'Invalid Type' },
-        { id: 'Temporal', passed: !!previousHash, reason: 'Chain Discontinuity' },
-        { id: 'Sovereign', passed: V2_CORE_SIGNAL === "0x8844_STEADY_ROOT", reason: 'Source Logic Tampered' }
+        { id: 'Coupling', passed: /^0x[a-fA-F0-9]+$/.test(anchor), reason: 'Anchor must be Hexadecimal' },
+        { id: 'Scale', passed: state.trim().length > 0, reason: 'Substrate cannot be whitespace' },
+        { id: 'Structural', passed: ['Linear', 'Nonlinear'].includes(type), reason: 'Invalid Governance Type' },
+        { id: 'Temporal', passed: previousHash.startsWith('0x'), reason: 'Chain Broken: Missing Hash' },
+        { id: 'Sovereign', passed: V2_CORE_SIGNAL === "0x8844_STEADY_ROOT", reason: 'Logic Integrity Compromised' }
     ];
 
     const ok = results.every(r => r.passed);
