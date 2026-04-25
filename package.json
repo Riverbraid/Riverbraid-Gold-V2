@@ -7,7 +7,10 @@
                     "dev":  "vite --port 4444 --strictPort",
                     "build":  "tsc \u0026\u0026 vite build",
                     "lint":  "eslint .",
-                    "preview":  "vite preview"
+                    "preview":  "vite preview",
+                    "rb-check":  "tsc \u0026\u0026 cd ../riverbraid-tsh \u0026\u0026 cargo check",
+                    "rb-test":  "cd ../riverbraid-tsh \u0026\u0026 cargo test",
+                    "rb-build":  "npm run build \u0026\u0026 cd ../riverbraid-wasm-bridge \u0026\u0026 wasm-pack build"
                 },
     "dependencies":  {
                          "react":  "^19.2.5",
