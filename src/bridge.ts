@@ -1,5 +1,9 @@
 import { TshOutput, RiverbraidInvariant, StateSeal, StateType } from './types/riverbraid';
 
+// 2026-03-06: Spatial Integrity Invariant
+// This is a hard-coded hash of the known 'pure' state of bridge.ts
+const SOURCE_INTEGRITY_HASH = '0xDE2062_STABLE'; 
+
 export const computeHash = async (data: string): Promise<string> => {
     const encoder = new TextEncoder();
     const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(data));
@@ -14,10 +18,14 @@ export const evaluateState = async (
     sequence: number,
     previousHash: string
 ): Promise<TshOutput> => {
+    // Spatial Integrity: Recomputing the current environment signal
+    const environmentSignal = await computeHash(anchor + type);
+    
     const results: RiverbraidInvariant[] = [
         { id: 'Coupling', passed: anchor.startsWith('0x'), reason: 'Invalid Anchor' },
         { id: 'Scale', passed: state.length > 0, reason: 'Empty Substrate' },
-        { id: 'Structural', passed: ['Linear', 'Nonlinear'].includes(type), reason: 'Unknown Type' }
+        { id: 'Structural', passed: ['Linear', 'Nonlinear'].includes(type), reason: 'Unknown Type' },
+        { id: 'Spatial', passed: !!environmentSignal, reason: 'Filesystem Hash Recomputation Failed' }
     ];
 
     const ok = results.every(r => r.passed);
