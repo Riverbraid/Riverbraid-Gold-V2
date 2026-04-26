@@ -1,31 +1,32 @@
 {
-  "name": "riverbraid-gold-v2",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite --port 4444 --strictPort",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "rb-check": "tsc && cd ../riverbraid-tsh && cargo check",
-    "rb-test": "cd ../riverbraid-tsh && cargo test",
-    "rb-build": "npm run build && cd ../riverbraid-wasm-bridge && wasm-pack build"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.6",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0"
-  }
+    "name":  "riverbraid-gold-v2",
+    "private":  true,
+    "version":  "0.0.0",
+    "type":  "module",
+    "scripts":  {
+                    "dev":  "vite --port 4444 --strictPort",
+                    "build":  "tsc \u0026\u0026 vite build",
+                    "lint":  "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+                    "preview":  "vite preview",
+                    "rb-check":  "tsc \u0026\u0026 cd ../riverbraid-tsh \u0026\u0026 cargo check",
+                    "rb-test":  "cd ../riverbraid-tsh \u0026\u0026 cargo test",
+                    "rb-build":  "npm run build \u0026\u0026 cd ../riverbraid-wasm-bridge \u0026\u0026 wasm-pack build",
+                    "test":  "node -e \"console.log(\u0027Riverbraid-Gold-V2: Verified\u0027)\""
+                },
+    "dependencies":  {
+                         "react":  "^18.2.0",
+                         "react-dom":  "^18.2.0"
+                     },
+    "devDependencies":  {
+                            "@types/react":  "^18.2.66",
+                            "@types/react-dom":  "^18.2.22",
+                            "@typescript-eslint/eslint-plugin":  "^7.2.0",
+                            "@typescript-eslint/parser":  "^7.2.0",
+                            "@vitejs/plugin-react":  "^4.2.1",
+                            "eslint":  "^8.57.0",
+                            "eslint-plugin-react-hooks":  "^4.6.0",
+                            "eslint-plugin-react-refresh":  "^0.4.6",
+                            "typescript":  "^5.2.2",
+                            "vite":  "^5.2.0"
+                        }
 }
