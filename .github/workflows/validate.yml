@@ -1,4 +1,4 @@
-﻿name: Riverbraid_Core_Validation
+name: Riverbraid_Core_Validation
 
 on:
   push:
@@ -23,3 +23,4 @@ jobs:
 
       - name: Type Check (Structural Integrity)
         run: npm run build
+
