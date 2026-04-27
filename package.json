@@ -1,4 +1,4 @@
-{
+﻿{
     "name":  "riverbraid-gold-v2",
     "private":  true,
     "version":  "0.0.0",
@@ -11,7 +11,8 @@
                     "rb-check":  "tsc \u0026\u0026 cd ../riverbraid-tsh \u0026\u0026 cargo check",
                     "rb-test":  "cd ../riverbraid-tsh \u0026\u0026 cargo test",
                     "rb-build":  "npm run build \u0026\u0026 cd ../riverbraid-wasm-bridge \u0026\u0026 wasm-pack build",
-                    "test":  "node -e \"console.log(\u0027Riverbraid-Gold-V2: Verified\u0027)\""
+                    "test":  "npm run verify:feature-flow \u0026\u0026 node -e \"console.log(\u0027Riverbraid-Gold-V2: Verified\u0027)\"",
+                    "verify:feature-flow":  "node verify-feature-flow.cjs"
                 },
     "dependencies":  {
                          "react":  "^18.2.0",
