@@ -1,7 +1,7 @@
 {
-  "name": "riverbraid-gold-v2",
+  "name": "@riverbraid/gold-v2",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port 4444 --strictPort",
@@ -11,8 +11,10 @@
     "rb-check": "tsc && cd ../riverbraid-tsh && cargo check",
     "rb-test": "cd ../riverbraid-tsh && cargo test",
     "rb-build": "npm run build && cd ../riverbraid-wasm-bridge && wasm-pack build",
-    "test": "npm run verify:feature-flow",
-    "verify:feature-flow": "node verify-feature-flow.cjs"
+    "test": "node verify.mjs",
+    "verify:feature-flow": "node verify-feature-flow.cjs",
+    "test:legacy": "npm run verify:feature-flow",
+    "verify": "node verify.mjs"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -29,5 +31,8 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
-  }
+  },
+  "description": "Riverbraid Gold petal for deterministic stationarity verification.",
+  "main": "index.js",
+  "license": "MIT"
 }
