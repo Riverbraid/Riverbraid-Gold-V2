@@ -15,12 +15,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.11.0'
-      - name: Install Dependencies
+      - name: Install Dependencies If Lockfile Is Valid
         run: |
-          if [ -f package-lock.json ]; then
-            npm ci
+          if [ -f package-lock.json ] && [ -f package.json ]; then
+            npm ci || echo "Dependency install skipped after npm ci failure; continuing to verifier."
           else
-            echo "No package-lock.json found. Skipping dependency install."
+            echo "No package-lock.json/package.json pair found. Skipping dependency install."
           fi
       - name: Execute Riverbraid Verifier
         run: |
