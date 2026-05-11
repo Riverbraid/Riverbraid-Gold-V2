@@ -18,3 +18,6 @@
 
 ## Verification
 The system uses SHA-256 to ensure that every sequence follows the `previousHash`. If the logic is tampered with, the `Sovereign` invariant will Fail-Closed.
+
+## License
+MIT.
