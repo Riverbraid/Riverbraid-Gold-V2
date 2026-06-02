@@ -5,6 +5,8 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -15,10 +17,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.11.0'
-      - name: Install Dependencies If Lockfile Is Valid
+      - name: Install Dependencies If Lockfile Is Present
         run: |
           if [ -f package-lock.json ] && [ -f package.json ]; then
-            npm ci || echo "Dependency install skipped after npm ci failure; continuing to verifier."
+            npm ci
           else
             echo "No package-lock.json/package.json pair found. Skipping dependency install."
           fi
