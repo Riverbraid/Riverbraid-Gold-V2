@@ -1,23 +1,54 @@
-# Riverbraid Gold V2
-**The Sovereign Relational Ledger**
+# Riverbraid-Gold-V2
 
-## Principles
-1. **Mechanical Honesty:** The machine and the law are one.
-2. **Spatial Integrity:** Every seal is recomputed against the physical floor.
-3. **Temporal Bridging:** History is a non-linear, persistent chain.
+**Lifecycle category:** experimental concept/demo surface
+**Normative source:** Riverbraid-Core
+**Claim boundary:** Declared Conditions Only
 
-## Getting Started
-1. `npm install`
-2. `npm run dev`
-3. Open `http://localhost:4444`
+## Role in Riverbraid
 
-## Core Functions
-- **Execute Seal:** Anchors a state into the persistent ledger.
-- **Resurrect Braid:** Imports a JSON manifest to restore state history.
-- **Export Manifest:** Downloads a cryptographically chained record of all transitions.
+Riverbraid-Gold-V2 is an experimental next-generation concept and demo surface for Riverbraid interface, ledger, and verification ideas.
+
+This repository is not a canonical Evaluation Kit proof route unless a current registry and evidence surface explicitly say so.
+
+## Public verification boundary
+
+Local verifier output, demo behavior, and UI behavior must not be treated as canonical registry verification.
+
+Package scripts in this repository may reference neighboring repositories. Those references are dependency-boundary surfaces and should not be treated as self-contained proof unless the full workspace layout and evidence surface are checked.
+
+Primary public entry point:
+https://github.com/Riverbraid/Riverbraid-Evaluation-Kit
+
+Documentation hub:
+https://github.com/Riverbraid/Riverbraid-Documentation
+
+## Evidence boundary
+
+This repository does not claim certification, legal approval, production readiness, absolute security, external audit, complete AI safety, adoption, registry freshness, or absence of defects.
+
+## Authority boundary
+
+Riverbraid-Core remains the normative source for protocol semantics. This repository does not override Core, the Evaluation Kit registry, workflow evidence, release state, or external review.
+
+## Local use
+
+```bash
+npm install
+npm run dev
+```
 
 ## Verification
-The system uses SHA-256 to ensure that every sequence follows the `previousHash`. If the logic is tampered with, the `Sovereign` invariant will Fail-Closed.
+
+```bash
+node verify.mjs
+```
+
+This command currently represents local repository verification only unless stronger evidence is explicitly provided.
 
 ## License
+
 MIT.
+
+---
+
+**Navigation:** [Evaluation Kit](https://github.com/Riverbraid/Riverbraid-Evaluation-Kit) | [Documentation](https://github.com/Riverbraid/Riverbraid-Documentation) | [System Map](https://github.com/Riverbraid/Riverbraid-Documentation)
