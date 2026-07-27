@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "record_id": "RB-GOLD-V2-WORKSPACE-DEPENDENCY-CONTRACT-001",
+  "version": "1.0.0-candidate",
+  "status": "OPTIONAL_WORKSPACE_ONLY",
+  "repository": "Riverbraid/Riverbraid-Gold-V2",
+  "default_workspace_root": "PARENT_OF_REPOSITORY",
+  "commands": {
+    "check": {
+      "local_precommand": null,
+      "dependency": "riverbraid-tsh",
+      "executable": "cargo",
+      "arguments": ["check"]
+    },
+    "test": {
+      "local_precommand": null,
+      "dependency": "riverbraid-tsh",
+      "executable": "cargo",
+      "arguments": ["test"]
+    },
+    "build": {
+      "local_precommand": {
+        "executable": "npm",
+        "arguments": ["run", "build"]
+      },
+      "dependency": "riverbraid-wasm-bridge",
+      "executable": "wasm-pack",
+      "arguments": ["build"]
+    }
+  },
+  "outcomes": {
+    "dependency_missing_exit_code": 2,
+    "dependency_missing_status": "WORKSPACE_DEPENDENCY_UNAVAILABLE",
+    "command_failure_status": "WORKSPACE_COMMAND_FAILED",
+    "success_status": "WORKSPACE_COMMAND_CONDITIONS_MET"
+  },
+  "claim_effect": "The rb-* commands require an explicitly prepared neighboring workspace. They are not part of the repository's self-contained default verification path.",
+  "nonclaims": [
+    "This contract does not establish that the sibling repositories are present.",
+    "This contract does not pin sibling source commits.",
+    "This contract does not establish integrated F3 behavior.",
+    "This contract does not make Gold V2 a canonical Evaluation Kit route.",
+    "A successful local repository verifier does not establish workspace-command success."
+  ],
+  "review_triggers": [
+    "sibling repository rename or path change",
+    "workspace command change",
+    "F3 profile membership decision",
+    "portable workspace profile adoption",
+    "replacement of sibling coupling with package or artifact dependencies"
+  ]
+}
