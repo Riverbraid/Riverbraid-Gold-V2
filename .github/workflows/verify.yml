@@ -1,38 +1,35 @@
 name: Riverbraid Verification Gate
+
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
+
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '20.11.0'
-      - name: Install Dependencies If Lockfile Is Present
-        run: |
-          if [ -f package-lock.json ] && [ -f package.json ]; then
-            npm ci
-          else
-            echo "No package-lock.json/package.json pair found. Skipping dependency install."
-          fi
-      - name: Execute Riverbraid Verifier
-        run: |
-          if [ -f verify.mjs ]; then
-            node verify.mjs
-          elif [ -f package.json ] && grep -q '"verify":' package.json 2>/dev/null; then
-            npm run verify
-          elif [ -f package.json ] && grep -q '"test":' package.json 2>/dev/null; then
-            npm test
-          else
-            echo "Error: No standard verifier found."
-            exit 1
-          fi
+
+      - name: Install locked dependencies with lifecycle scripts denied
+        run: npm ci --ignore-scripts
+
+      - name: Execute local repository verifier
+        run: npm run verify
+
+      - name: Verify optional workspace dependency boundary
+        run: npm run verify:workspace-boundary
+
+      - name: Build local demo surface
+        run: npm run build

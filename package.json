@@ -8,13 +8,14 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "rb-check": "tsc && cd ../riverbraid-tsh && cargo check",
-    "rb-test": "cd ../riverbraid-tsh && cargo test",
-    "rb-build": "npm run build && cd ../riverbraid-wasm-bridge && wasm-pack build",
-    "test": "node verify.mjs",
+    "rb-check": "node scripts/run-workspace-command.mjs check",
+    "rb-test": "node scripts/run-workspace-command.mjs test",
+    "rb-build": "node scripts/run-workspace-command.mjs build",
+    "test": "node verify.mjs && node tests/workspace-boundary.mjs",
+    "verify": "node verify.mjs",
+    "verify:workspace-boundary": "node tests/workspace-boundary.mjs",
     "verify:feature-flow": "node verify-feature-flow.cjs",
-    "test:legacy": "npm run verify:feature-flow",
-    "verify": "node verify.mjs"
+    "test:legacy": "npm run verify:feature-flow"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -32,7 +33,12 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   },
-  "description": "Riverbraid Gold petal for deterministic stationarity verification.",
+  "engines": {
+    "node": "20.11.0",
+    "npm": "10.2.4"
+  },
+  "packageManager": "npm@10.2.4",
+  "description": "Riverbraid experimental Gold V2 concept and demo surface with bounded local and optional workspace verification paths.",
   "main": "index.js",
   "license": "MIT"
 }
